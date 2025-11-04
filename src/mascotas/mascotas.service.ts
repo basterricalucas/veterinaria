@@ -90,7 +90,6 @@ export class MascotasService {
       return { mensaje: 'Mascota no encontrada' };
     }
 
-    // Eliminar desplazando elementos (sin usar métodos)
     for (let i = indice; i < datos.mascotas.length - 1; i++) {
       datos.mascotas[i] = datos.mascotas[i + 1];
     }

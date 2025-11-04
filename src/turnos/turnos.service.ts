@@ -40,14 +40,12 @@ export class TurnosService {
   postTurno(nuevoTurno) {
     const datos = this.leerbd();
 
-    // Validar que la fecha no sea pasada
     const hoy = new Date();
     const fechaTurno = new Date(nuevoTurno.fecha);
     if (fechaTurno < hoy) {
       return { mensaje: 'No se pueden agendar turnos en fechas pasadas' };
     }
 
-    // Generar nuevo ID numérico secuencial
     let maxId = 0;
     for (let i = 0; i < datos.turnos.length; i++) {
       const num = parseInt(datos.turnos[i].id);
@@ -75,7 +73,6 @@ export class TurnosService {
       return { mensaje: 'Turno no encontrado' };
     }
 
-    // Validar fecha si se modifica
     if (datosModificados.fecha) {
       const hoy = new Date();
       const fechaNueva = new Date(datosModificados.fecha);
@@ -107,7 +104,6 @@ export class TurnosService {
       return { mensaje: 'Turno no encontrado' };
     }
 
-    // Eliminar desplazando manualmente
     for (let i = indice; i < datos.turnos.length - 1; i++) {
       datos.turnos[i] = datos.turnos[i + 1];
     }
