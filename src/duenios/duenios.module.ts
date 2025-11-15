@@ -6,4 +6,9 @@ import { DueniosService } from './duenios.service';
   controllers: [DueniosController],
   providers: [DueniosService],
 })
-export class DueniosModule {}
+export class DueniosModule {
+  id: string;
+  nombre: string
+  telefono: string;
+  direccion: string;
+}

@@ -37,13 +37,33 @@ export class TurnosService {
     }
   }
 
-  postTurno(nuevoTurno) {
+  postTurno(nuevoTurno: any) {
     const datos = this.leerbd();
+
+    if (!nuevoTurno.mascotaId) {
+      return { mensaje: 'Debe indicar la mascota para el turno' };
+    }
+
+    let mascotaSeleccionada: any = null;
+    for (let i = 0; i < datos.mascotas.length; i++) {
+      if (datos.mascotas[i].id === nuevoTurno.mascotaId) {
+        mascotaSeleccionada = datos.mascotas[i];
+        break;
+      }
+    }
+
+    if (!mascotaSeleccionada) {
+      return { mensaje: 'Mascota no encontrada para el turno' };
+    }
 
     const hoy = new Date();
     const fechaTurno = new Date(nuevoTurno.fecha);
     if (fechaTurno < hoy) {
       return { mensaje: 'No se pueden agendar turnos en fechas pasadas' };
+    }
+
+    if (!nuevoTurno.duenioId) {
+      nuevoTurno.duenioId = mascotaSeleccionada.duenioId;
     }
 
     let maxId = 0;
@@ -55,10 +75,9 @@ export class TurnosService {
     nuevoTurno.id = (maxId + 1).toString();
     datos.turnos.push(nuevoTurno);
     this.guardarbd(datos);
-    return { mensaje: 'Turno agendado correctamente', turno: nuevoTurno };
   }
 
-  putModificarTurno(id: string, datosModificados) {
+  putModificarTurno(id: string, datosModificados: any) {
     const datos = this.leerbd();
     let turnoIndex = -1;
 
@@ -78,6 +97,22 @@ export class TurnosService {
       const fechaNueva = new Date(datosModificados.fecha);
       if (fechaNueva < hoy) {
         return { mensaje: 'No se pueden modificar turnos a fechas pasadas' };
+      }
+    }
+
+    if (datosModificados.mascotaId) {
+      let mascotaValida: any = null;
+      for (let i = 0; i < datos.mascotas.length; i++) {
+        if (datos.mascotas[i].id === datosModificados.mascotaId) {
+          mascotaValida = datos.mascotas[i];
+          break;
+        }
+      }
+      if (!mascotaValida) {
+        return { mensaje: 'Mascota no encontrada para el turno' };
+      }
+      if (!datosModificados.duenioId) {
+        datosModificados.duenioId = mascotaValida.duenioId || '';
       }
     }
 

@@ -19,9 +19,4 @@ export class DueniosController {
   postDuenio(@Body() nuevoDuenio: any ) {
     return this.dueniosService.postDuenio(nuevoDuenio);
   }
-
-  @Put('modificar/:id')
-  putmodificarDuenio(@Param('id') id: string, @Body() datosModificados: any) {
-    return this.dueniosService.putmodificarDuenio(id, datosModificados);
-  }
 }

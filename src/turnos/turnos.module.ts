@@ -6,4 +6,11 @@ import { TurnosService } from './turnos.service';
   controllers: [TurnosController],
   providers: [TurnosService],
 })
-export class TurnosModule {}
+export class TurnosModule {
+  id: string;
+  mascotaId: string;
+  duenioId: string;
+  fecha: string;
+  hora: string;
+  motivo: string;
+}

@@ -37,7 +37,7 @@ export class MascotasService {
     }
   }
 
-  postMascota(nuevaMascota) {
+  postMascota(nuevaMascota: any) {
     const datos = this.leerbd();
 
     let maxId = 0;
@@ -100,3 +100,5 @@ export class MascotasService {
     return { mensaje: 'Mascota eliminada correctamente' };
   }
 }
+
+

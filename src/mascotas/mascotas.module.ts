@@ -6,4 +6,11 @@ import { MascotasService } from './mascotas.service';
   controllers: [MascotasController],
   providers: [MascotasService],
 })
-export class MascotasModule {}
+export class MascotasModule {
+  id: string;
+  nombre: string;
+  especie: string;
+  raza: string;
+  edad: number;
+  duenioId: string;
+}
