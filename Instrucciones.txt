@@ -1,0 +1,33 @@
+Dueños
+------
+GET /duenios/listado -> listado completo de dueños.
+GET /duenios/duenio/:id -> devuelve un dueño puntual.
+POST /duenios/nuevo -> crea un dueño (enviar JSON con nombre, telefono, direccion).
+
+Mascotas
+--------
+GET /mascotas/listado -> lista las mascotas registradas.
+GET /mascotas/mascota/id -> detalle de una mascota.
+POST /mascotas/nuevo -> registra mascota nueva (incluye duenioId obligatorio).
+PUT /mascotas/modificar/id -> cambia los datos de la mascota.
+
+Turnos
+------
+GET /turnos/listado -> turnos agendados con su mascotaId y duenioId asociado.
+GET /turnos/turno/id -> detalle del turno con referencia a quien asiste.
+POST /turnos/nuevo -> agenda un turno (requiere mascotaId, fecha, hora y motivo; el duenioId se completa con el dueño de esa mascota si no se envía).
+PUT /turnos/modificar/id -> permite reprogramar fecha/hora o cambiar la mascota asignada (valida referencias).
+DELETE /turnos/eliminar/id -> elimina el turno.
+
+Historial
+---------
+GET /historial/lista -> devuelve todos los tratamientos guardados.
+GET /historial/mascota/id -> retorna mascota, su dueño y el historial clínico completo (vacunas, diagnósticos, controles) asociado.
+GET /historial/chequeos/pendientes -> lista de mascotas que deben agendar chequeo anual, incluyendo datos del dueño y fecha del último control (si existe).
+GET /historial/vacunas/pendientes -> lista de mascotas que requieren vacuna próxima (no tienen vacunas registradas o pasó un año desde la última).
+POST /historial/nuevo -> registra un tratamiento/diagnóstico indicando mascotaId, fecha, tipo y detalle; valida que la fecha no sea futura.
+
+Notas
+-----
+- En src/bd/base.json todas las entidades quedan relacionadas mediante duenioId y mascotaId.
+- Cada tratamiento incluye mascotaId para poder reconstruir el historial por paciente.
