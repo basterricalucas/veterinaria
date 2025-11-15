@@ -51,54 +51,6 @@ export class MascotasService {
     this.guardarbd(datos);
     return nuevaMascota;
   }
-
-  putModificarMascota(id: string, datosModificados) {
-    const datos = this.leerbd();
-    let mascotaIndex = -1;
-
-    for (let i = 0; i < datos.mascotas.length; i++) {
-      if (datos.mascotas[i].id === id) {
-        mascotaIndex = i;
-        break;
-      }
-    }
-
-    if (mascotaIndex === -1) {
-      return { mensaje: 'Mascota no encontrada' };
-    }
-
-    for (let propiedad in datosModificados) {
-      datos.mascotas[mascotaIndex][propiedad] = datosModificados[propiedad];
-    }
-
-    this.guardarbd(datos);
-    return { mensaje: 'Mascota modificada correctamente' };
-  }
-
-  deleteMascota(id: string) {
-    const datos = this.leerbd();
-    let indice = -1;
-
-    for (let i = 0; i < datos.mascotas.length; i++) {
-      if (datos.mascotas[i].id === id) {
-        indice = i;
-        break;
-      }
-    }
-
-    if (indice === -1) {
-      return { mensaje: 'Mascota no encontrada' };
-    }
-
-    for (let i = indice; i < datos.mascotas.length - 1; i++) {
-      datos.mascotas[i] = datos.mascotas[i + 1];
-    }
-
-    datos.mascotas.length = datos.mascotas.length - 1;
-
-    this.guardarbd(datos);
-    return { mensaje: 'Mascota eliminada correctamente' };
-  }
 }
 
 
